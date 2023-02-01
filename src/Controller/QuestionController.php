@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class QuestionController
+class QuestionController extends AbstractController
 {
     //uzyjemy annotacji zamiast normalnego trasowania w routes.yaml -> wykona się funkcja homepage, wystarczy w bloku komentarza dodać trasę z biblioteki
     /**
@@ -17,12 +18,18 @@ class QuestionController
     }
 
     /**
-     * @Route("/question/{slug}")
+     * @Route("/questions/{slug}")
      */
     public function show($slug)
     {
-        return new Response(sprintf('future page to show a question "%s"!',
-        ucwords(str_replace('-',' ', $slug))
-        ));
+        $answers = [
+            'Make sure your cat is sitting purrrfectly still ?',
+            'Honestly, I like furry shoes better than MY cat',
+            'Maybe... try saying the spell backwards?',
+        ];
+        return $this->render('question/show.html.twig', [
+            'question' => ucwords(str_replace('-',' ', $slug)),
+            'answers' => $answers,
+        ]);
     }
 }
