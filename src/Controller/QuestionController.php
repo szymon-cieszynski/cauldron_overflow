@@ -10,15 +10,16 @@ class QuestionController extends AbstractController
 {
     //uzyjemy annotacji zamiast normalnego trasowania w routes.yaml -> wykona się funkcja homepage, wystarczy w bloku komentarza dodać trasę z biblioteki
     /**
-     * @Route("/")
+     * @Route("/", name="app_homepage")
      */
     public function homepage()
     {
-        return new Response('What a bewitching controller we have conjured!');
+        return $this->render('question/homepage.html.twig');
+//        return new Response('What a bewitching controller we have conjured!');
     }
 
     /**
-     * @Route("/questions/{slug}")
+     * @Route("/questions/{slug}", name="app_question_show")
      */
     public function show($slug)
     {
@@ -27,6 +28,9 @@ class QuestionController extends AbstractController
             'Honestly, I like furry shoes better than MY cat',
             'Maybe... try saying the spell backwards?',
         ];
+
+        dump($this);
+
         return $this->render('question/show.html.twig', [
             'question' => ucwords(str_replace('-',' ', $slug)),
             'answers' => $answers,
