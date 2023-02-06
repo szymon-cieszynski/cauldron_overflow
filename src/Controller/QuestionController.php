@@ -3,11 +3,22 @@
 namespace App\Controller;
 
 use App\Service\MarkdownHelper;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 class QuestionController extends AbstractController
 {
+    private LoggerInterface $logger;
+    private bool $isDebug;
+
+    public function __construct(LoggerInterface $logger, bool $isDebug)
+    {
+
+        $this->logger = $logger;
+        $this->isDebug = $isDebug;
+    }
+
     //uzyjemy annotacji zamiast normalnego trasowania w routes.yaml -> wykona się funkcja homepage, wystarczy w bloku komentarza dodać trasę z biblioteki
     /**
      * @Route("/", name="app_homepage")
@@ -23,6 +34,11 @@ class QuestionController extends AbstractController
      */
     public function show($slug, MarkdownHelper $markdownHelper)
     {
+        if($this->isDebug)
+        {
+            $this->logger->info('Jestesmy w trybie debugowania');
+        }
+        //dump($isDebug);
         //dump($this->getParameter('cache_adapter'));
         $answers = [
             'Make sure your cat is sitting `purrrfectly` still ?',

@@ -32,4 +32,4 @@ services:
 #        bind:
 #            $isDebug: '%kernel.debug%'
 
-#    Psr\Log\LoggerInterface $mdLogger: '@monolog.logger.markdown'
+    Psr\Log\LoggerInterface $mdLogger: '@monolog.logger.markdown'
