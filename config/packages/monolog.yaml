@@ -45,6 +45,7 @@ when@test:
                 type: stream
                 path: "%kernel.logs_dir%/%kernel.environment%.log"
                 level: debug
+        channels: ['markdown']
 
 when@prod:
     monolog:
@@ -68,5 +69,6 @@ when@prod:
                 type: stream
                 channels: [deprecation]
                 path: php://stderr
+        channels: ['markdown']
 
 
