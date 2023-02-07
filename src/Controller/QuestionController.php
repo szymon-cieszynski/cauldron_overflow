@@ -33,16 +33,15 @@ class QuestionController extends AbstractController
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug, MarkdownHelper $markdownHelper, HubInterface $sentryHub)
+    public function show($slug, MarkdownHelper $markdownHelper)
     {
-        dump($sentryHub->getClient());
 
         if($this->isDebug)
         {
             $this->logger->info('Jestesmy w trybie debugowania');
         }
 
-        throw new \Exception('bad stuff happend!');
+        //throw new \Exception('bad stuff happend!');
         //dump($isDebug);
         //dump($this->getParameter('cache_adapter'));
         $answers = [
