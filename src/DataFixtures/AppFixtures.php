@@ -13,5 +13,10 @@ class AppFixtures extends Fixture
     {
         //QuestionFactory::new()->create();
         QuestionFactory::createMany(20);
+
+        QuestionFactory::new()
+            ->unpublished()
+            ->createMany(5)
+        ;
     }
 }

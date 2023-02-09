@@ -15,6 +15,7 @@
         "paragonie/sodium_compat": "^1.19",
         "sensio/framework-extra-bundle": "^6.2",
         "sentry/sentry-symfony": "^4.5",
+        "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/asset": "6.2.*",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
