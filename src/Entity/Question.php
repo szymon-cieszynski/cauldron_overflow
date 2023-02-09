@@ -26,6 +26,9 @@ class Question
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
 
+    #[ORM\Column]
+    private int $votes = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,37 @@ class Question
     {
         $this->askedAt = $askedAt;
 
+        return $this;
+    }
+
+    public function getVotes(): int
+    {
+        return $this->votes;
+    }
+
+    public function getVotesString(): string
+    {
+        $prefix = $this->getVotes() >=0 ? '+' : '-';
+        return sprintf('%s %d', $prefix, abs($this->getVotes()));
+    }
+
+
+    public function setVotes(int $votes): self
+    {
+        $this->votes = $votes;
+
+        return $this;
+    }
+
+    public function upVote(): self
+    {
+        $this->votes++;
+        return $this;
+    }
+
+    public function downVote(): self
+    {
+        $this->votes--;
         return $this;
     }
 }
