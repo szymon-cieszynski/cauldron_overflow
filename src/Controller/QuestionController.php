@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Knp\Bundle\TimeBundle\Templating\Helper\TimeHelper;
 use App\Service\MarkdownHelper;
@@ -54,34 +55,18 @@ class QuestionController extends AbstractController
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show(Question $question/*$slug, EntityManagerInterface $entityManager*/)
+    public function show(Question $question/*$slug, EntityManagerInterface $entityManager*//*, AnswerRepository $answerRepository*/)
     {
 
         if($this->isDebug)
         {
             $this->logger->info('Jestesmy w trybie debugowania');
         }
-
-//        $repository = $entityManager->getRepository(Question::class);
-//        /** @var Question|null $question */
-//        $question = $repository->findOneBy(['slug'=>$slug]);
-//        if(!$question)
-//        {
-//            throw $this->createNotFoundException(sprintf('no question found for slug "%s"', $slug));
-//        }
-
-        $answers = [
-            'Make sure your cat is sitting `purrrfectly` still ?',
-            'Honestly, I like furry shoes better than MY cat',
-            'Maybe... try saying the spell backwards?',
-        ];
-
-//        $questionText = 'I\'ve been turned into a cat, any *thoughts* on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
-//        $parsedQuestionText = $markdownHelper->parse($questionText);
+        //$answers = $question->getAnswers();
 
         return $this->render('question/show.html.twig', [
             'question' => $question,
-            'answers' => $answers,
+            //'answers' => $answers,
         ]);
     }
 

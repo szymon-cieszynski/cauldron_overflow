@@ -41,6 +41,7 @@ class Question
     public function __construct()
     {
         $this->answers = new ArrayCollection();
+        //$this->questionTags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,7 +129,7 @@ class Question
     }
 
     /**
-     * @return Collection<int, Answer>
+     * @return Collection|Answer[]
      */
     public function getAnswers(): Collection
     {
@@ -138,7 +139,7 @@ class Question
     public function addAnswer(Answer $answer): self
     {
         if (!$this->answers->contains($answer)) {
-            $this->answers->add($answer);
+            $this->answers[] = $answer;
             $answer->setQuestion($this);
         }
 
