@@ -35,7 +35,11 @@ class Question
     #[ORM\Column]
     private int $votes = 0;
 
-    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class)]
+    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, fetch: "EXTRA_LAZY")]
+    //#[ORM\OrderBy(createdAt: 'DESC')]
+
+
+
     private Collection $answers;
 
     public function __construct()
@@ -134,6 +138,13 @@ class Question
     public function getAnswers(): Collection
     {
         return $this->answers;
+    }
+
+    public function getApprovedAnswers(): Collection
+    {
+        return $this->answers->filter(function(Answer $answer){
+            return $answer->isApproved();
+        });
     }
 
     public function addAnswer(Answer $answer): self

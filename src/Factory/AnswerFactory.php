@@ -44,6 +44,11 @@ final class AnswerFactory extends ModelFactory
      *
      * @todo add your default values here
      */
+
+    public function needsApproval(): self
+    {
+        return $this->addState(['status' => Answer::STATUS_NEEDS_APPROVAL]);
+    }
     protected function getDefaults(): array
     {
         return [
@@ -52,6 +57,7 @@ final class AnswerFactory extends ModelFactory
             'createdAt' => self::faker()->dateTimeBetween('-1 year'),
             'votes' => rand(-20, 50),
             'question' => QuestionFactory::new()->unpublished(),
+            'status' => Answer::STATUS_APPROVED,
         ];
     }
 

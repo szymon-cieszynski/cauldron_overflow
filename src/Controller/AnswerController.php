@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Answer;
+use App\Factory\AnswerFactory;
 use App\Repository\AnswerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -43,6 +44,7 @@ class AnswerController extends AbstractController
             $logger->info('Voting down!');
             $answer->setVotes($answer->getVotes() - 1);
         }
+
 
         $entityManager->flush();
 
