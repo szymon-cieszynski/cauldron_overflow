@@ -50,4 +50,6 @@ class AnswerController extends AbstractController
 
         return $this->json(['votes' => $answer->getVotes()]);
     }
+
+
 }
