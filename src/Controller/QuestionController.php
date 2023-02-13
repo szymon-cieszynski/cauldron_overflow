@@ -8,6 +8,8 @@ use App\Repository\QuestionRepository;
 use Knp\Bundle\TimeBundle\Templating\Helper\TimeHelper;
 use App\Service\MarkdownHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Psr\Log\LoggerInterface;
 use Sentry\State\HubInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,17 +30,24 @@ class QuestionController extends AbstractController
 
     //uzyjemy annotacji zamiast normalnego trasowania w routes.yaml -> wykona się funkcja homepage, wystarczy w bloku komentarza dodać trasę z biblioteki
     /**
-     * @Route("/", name="app_homepage")
+     * @Route("/{page<\d+>}", name="app_homepage")
      */
-    public function homepage(/*EntityManagerInterface $entityManager*/QuestionRepository $repository)
+    public function homepage(/*EntityManagerInterface $entityManager*/QuestionRepository $repository, int $page = 1)
     {
         //$repository = $entityManager->getRepository(Question::class);
         //$questions = $repository->findBy([],['askedAt'=>'DESC']);
-        $questions = $repository->findAllAskedOrderedByNewest();
+        $queryBuilder = $repository->createAskedOrderedByNewestQueryBuilder();
+
+        $pagerfanta = new Pagerfanta(
+            new QueryAdapter($queryBuilder)
+        );
+
+        $pagerfanta->setMaxPerPage(5);
+        $pagerfanta->setCurrentPage($page);
 
         return $this->render('question/homepage.html.twig',
         [
-            'questions'=>$questions
+            'pager'=>$pagerfanta
         ]);
 //        return new Response('What a bewitching controller we have conjured!');
     }
