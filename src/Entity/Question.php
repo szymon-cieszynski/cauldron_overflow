@@ -39,7 +39,7 @@ class Question
     private int $votes = 0;
 
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, fetch: "EXTRA_LAZY")]
-    //#[ORM\OrderBy(createdAt: 'DESC')]
+    #[ORM\OrderBy(['createdAt' => 'DESC'])]
 
 
 

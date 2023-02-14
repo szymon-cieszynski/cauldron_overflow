@@ -100,6 +100,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/pagerfanta/core" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/pagerfanta/doctrine-orm-adapter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/pagerfanta/twig" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-http" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-csrf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
