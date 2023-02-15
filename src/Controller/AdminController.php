@@ -72,4 +72,5 @@ class AdminController extends AbstractController
 
         return new Response('Pretend comments admin page');
     }
+
 }
