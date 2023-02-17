@@ -12,8 +12,16 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-1">
+<body
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {{ stimulus_controller('user-api', {
+                url: path('app_user_api_me')
+            }) }}
+        {% endif %}>
+<nav
+        class="navbar navbar-expand-lg navbar-light bg-light px-1"
+        {{ is_granted('ROLE_PREVIOUS_ADMIN') ? 'style="background-color: red !important"' }}
+>
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path('app_homepage') }}">
             <p class="pl-2 d-inline font-weight-bold" style="color: #444;">
@@ -49,6 +57,12 @@
                                 alt="{{ app.user.displayName }} Avatar">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <a class="dropdown-item" href="{{ path('app_homepage', {
+                                '_switch_user': '_exit'
+                            }) }}">Exit Impersonation</a>
+                            </li>
+                        {% endif %}
                         <li>
                             <a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a>
                         </li>
