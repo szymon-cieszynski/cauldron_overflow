@@ -15,5 +15,6 @@ import './bootstrap';
 
 import {Collapse} from 'bootstrap';
 
-// Need jQuery?import $ from 'jquery';
+// Need jQuery?
+import $ from 'jquery';
 // /*** Any Other Code JS Code you want to add*/
