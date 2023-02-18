@@ -86,4 +86,40 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Account Verified! You can now log in.');
         return $this->redirectToRoute('app_login');
     }
+
+//    /**
+//     * @Route("/verify/resend", name="app_verify_resend_email")
+//     */
+//    public function resendVerifyEmail()
+//    {
+//        return $this->render('registration/resend_verify_email.html.twig');
+//    }
+
+    /** * @Route("/verify/resend", name="app_verify_resend_email") */
+    public function resendVerifyEmail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserRepository $userRepository)
+    {
+        if ($request->isMethod('POST'))
+        {
+            // probably, you will want to centralize all of this logic into a service, so you can call it from here and also from RegistrationController after a successful registration
+            $email = $request->getSession()->get('non_verified_email');
+            $user = $userRepository->findOneBy(['email' => $email]);
+            if (!$user)
+            {
+                throw $this->createNotFoundException('user not found for email');
+            }
+
+            $signatureComponents = $verifyEmailHelper->generateSignature(
+                'app_verify_email',
+                $user->getId(),
+                $user->getEmail(),
+                ['id' => $user->getId()]
+            );
+            // TODO: in a real app, send this as an email!
+            $this->addFlash('success', 'Confirm your email at: '.$signatureComponents->getSignedUrl());
+            return $this->redirectToRoute('app_homepage');
+
+        }
+
+        return $this->render('registration/resend_verify_email.html.twig');
+    }
 }
