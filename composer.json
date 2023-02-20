@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.8",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
+        "endroid/qr-code": "^4.7",
         "knplabs/knp-markdown-bundle": "^1.10",
         "nyholm/psr7": "^1.5",
         "pagerfanta/doctrine-orm-adapter": "^3.7",
